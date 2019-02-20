@@ -8,8 +8,9 @@
         <div>
             <router-view></router-view>
         </div>
-        <router-link to="/cart">go to cart page</router-link>
-        <button @click="goToCartPage">go to cart page</button>
+        <router-link to="/cart?goodid=1234">go to cart page by router-link</router-link>
+        <router-link :to="{name:'cart', params:{cardId: 123}}">go to cart page by name</router-link>
+        <button @click="goToCartPage">go to cart page by router push</button>
     </div>
 </template>
 
