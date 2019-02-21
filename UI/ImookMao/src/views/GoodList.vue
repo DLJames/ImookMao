@@ -1,23 +1,79 @@
 <template>
     <div>
-        this is goodlist page: <br>
-        <span>{{$route.params.goodid}}</span><br>
-        <span>{{$route.params.name}}</span><br>
-        <router-link to="/good/title">go to good title</router-link>
-        <router-link to="/good/image">go to good image</router-link>
-        <div>
-            <router-view></router-view>
+        <nav-header></nav-header>
+        <nav-bread>
+            <span>Goods</span>
+        </nav-bread>
+        <div class="accessory-result-page accessory-page">
+            <div class="container">
+                <div class="filter-nav">
+                    <span class="sortby">Sort by:</span>
+                    <a href="javascript:void(0)" class="default cur">Default</a>
+                    <a href="javascript:void(0)" class="price">Price <svg class="icon icon-arrow-short"><use xlink:href="#icon-arrow-short"></use></svg></a>
+                    <a href="javascript:void(0)" class="filterby stopPop">Filter by</a>
+                </div>
+                <div class="accessory-result">
+                    <!-- filter -->
+                    <div class="filter stopPop" id="filter">
+                        <dl class="filter-price">
+                        <dt>Price:</dt>
+                        <dd><a href="javascript:void(0)">All</a></dd>
+                        <dd>
+                            <a href="javascript:void(0)">0 - 100</a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:void(0)">100 - 500</a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:void(0)">500 - 1000</a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:void(0)">1000 - 2000</a>
+                        </dd>
+                        </dl>
+                    </div>
+
+                    <!-- search result accessories list -->
+                    <div class="accessory-list-wrap">
+                        <div class="accessory-list col-4">
+                            <ul>
+                                <li>
+                                    <div class="pic">
+                                        <a href="#"><img src="/static/1.jpg" alt=""></a>
+                                    </div>
+                                    <div class="main">
+                                        <div class="name">XX</div>
+                                        <div class="price">999</div>
+                                        <div class="btn-area">
+                                            <a href="javascript:;" class="btn btn--m">加入购物车</a>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <router-link to="/cart?goodid=1234">go to cart page by router-link</router-link>
-        <router-link :to="{name:'cart', params:{cardId: 123}}">go to cart page by name</router-link>
-        <button @click="goToCartPage">go to cart page by router push</button>
+        <nav-footer></nav-footer>
     </div>
 </template>
 
 <script>
+import './../assets/css/base.css'
+import './../assets/css/product.css'
+import NavHeader from '@/components/NavHeader'
+import NavBread from '@/components/NavBread'
+import NavFooter from '@/components/NavFooter'
+
 export default {
     data () {
         return {}
+    },
+    components: {
+        NavHeader,
+        NavBread,
+        NavFooter
     },
     methods: {
         goToCartPage() {
