@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Echart Demo</title>
+    <!-- <script src="./js/echarts.common.min.js"></script> -->
+    <script src="./js/echarts.min.js"></script>
+    <style>
+        .newChart{
+            width: 500px;
+            height: 300px;
+            float: left;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <button onclick="changeValue()">change value</button>
+    </div>
+    <div id="chart1" class="newChart"></div>
+    <div id="chart2" class="newChart"></div>
+    <div id="chart3" class="newChart"></div>
+    <script>
+        // var chart1 = document.querySelector('#chart1');
+        // var mychart = echarts.init(chart1, 'dark');
+        // var option = {
+        //     title: {
+        //         text: 'this is a chart demo'
+        //     },
+        //     tooltip: {},
+        //     legend: {
+        //         data: ['销量', '产量']
+        //     },
+        //     xAxis: {
+        //         data: ['mac', 'thinkpad', 'linux']
+        //     },
+        //     yAxis: {
+        //         // data: ['mac', 'thinkpad', 'linux']
+        //     },
+        //     series: [
+        //         {
+        //             type: 'bar'
+        //         },
+        //         {
+        //             type: 'bar'
+        //         }
+        //     ]
+        // };
+
+        // mychart.setOption(option);
+        // mychart.showLoading();
+        // new Promise((res)=>{
+        //     setTimeout(()=>{
+        //         res();
+        //     },3000);
+        // }).then(()=>{
+        //     mychart.hideLoading();
+        //     mychart.setOption({
+        //         series: [
+        //             {
+        //                 name: '销量',
+        //                 data: [5, 10, 20]
+        //             },
+        //             {
+        //                 name: '产量',
+        //                 data: [100, 102, 120]
+        //             }
+        //         ]
+        //     });
+        // });
+        // // mychart.setOption(option);
+
+        // function changeValue() {
+        //     var obj = {
+        //         xAxis: {
+        //             data: ['华为', 'Oppo', '小米']
+        //         },
+        //         series: [
+        //             {
+        //                 name: '销量',
+        //                 data: [20, 50, 90]
+        //             },
+        //             {
+        //                 name: '产量',
+        //                 data: [130, 112, 170]
+        //             }
+        //         ]
+        //     }
+        //     mychart.setOption(obj);
+        // }
+    </script>
+    <script>
+        // var chart2 = document.querySelector('#chart2');
+        // var mychart2 = echarts.init(chart2, 'light');
+        // var option2 = {
+        //     legend: {},
+        //     dataset: {
+        //         source: [
+        //             ['product', '2015', '2016', '2017'],
+        //             ['Iphone', 5800, 9900, 15000],
+        //             ['Oppo', 2000, 3000, 4000],
+        //             ['Vivo', 2100, 2900, 5000]
+        //         ]
+        //         // dimensions: ['product', '2015', '2016', '2017'],
+        //         // source: [
+        //         //     {product: 'Matcha', '2015': 43.3, '2016': 85.8, '2017': 93.7},
+        //         //     {product: 'Milk', '2015': 83.1, '2016': 73.4, '2017': 55.1},
+        //         //     {product: 'Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},
+        //         //     {product: 'Walnut', '2015': 72.4, '2016': 53.9, '2017': 39.1}
+        //         // ]
+        //     },
+        //     xAxis: [
+        //         {
+        //             type: 'category', gridIndex: 0
+        //         },
+        //         {
+        //             type: 'category', gridIndex: 1
+        //         }
+        //     ],
+        //     yAxis: [
+        //         {
+        //             gridIndex: 0
+        //         },
+        //         {
+        //             gridIndex: 1
+        //         }
+        //     ],
+        //     grid: [
+        //         {x: 100, top: '25',bottom: '55%', width: 200},
+        //         {y: 200, top: '55%', bottom: '10%'}
+        //     ],
+        //     tooltip: {},
+        //     series: [
+        //         {
+        //             type: 'bar',
+        //             seriesLayoutBy: 'row'
+        //             // encode: {
+        //             //     x: '2015',
+        //             //     y: 'product'
+        //             // }
+        //         },
+        //         {
+        //             type: 'bar',
+        //             seriesLayoutBy: 'row'
+        //             // encode: {
+        //             //     x: '2016',
+        //             //     y: 'product'
+        //             // }
+        //         },
+        //         {
+        //             type: 'bar',
+        //             seriesLayoutBy: 'row'
+        //             // encode: {
+        //             //     x: '2017',
+        //             //     y: 'product'
+        //             // }
+        //         },
+        //         {
+        //             type: 'bar',
+        //             xAxisIndex: 1,
+        //             yAxisIndex: 1
+        //         },
+        //         {
+        //             type: 'bar',
+        //             xAxisIndex: 1,
+        //             yAxisIndex: 1
+        //         },
+        //         {
+        //             type: 'bar',
+        //             xAxisIndex: 1,
+        //             yAxisIndex: 1
+        //         }
+        //     ]
+        // };
+        // mychart2.setOption(option2);
+    </script>
+    <script>
+        var option3 = {
+    		tooltip : {
+    			//trigger: 'axis',
+    		},
+    		grid:{
+    			x:50,
+    			x2:60,
+                y2:60
+    		},
+    	    legend: {
+    	        // x: 'center',  
+                // y:'bottom',
+                left: 'center',
+                top: 'bottom',
+    	        itemWidth: 18,
+    	        itemHeight: 18,
+    	        itemGap: 65,
+     	        // icon: 'stack',
+    	        // orient: 'horizontal',
+    	        // padding:[0,0,0,50],
+    	        selectedMode:false,
+    	        data:[{name: 'All',icon: 'rect',textStyle:{color:'red'}},//this type for 'oppty creation'
+     	              {name: 'CSA',icon: 'circle'}]
+    	    },
+    		//	legend:[{x:'center',data:["Available","Engaged"],itemGap:65},{x:'center',top:'3%',data:["Investigated","Opportunities created"],itemGap:65}],
+    	    xAxis: [{
+	            type : 'category',
+	            data : ['Oct 2016','Nov 2016','Dec 2016','Jan 2017'],
+	            axisTick: {show:false},
+	            axisLabel: {        
+                    show: true,
+                    textStyle: {
+                        fontFamily: 'Helvetica Neue Roman for IBM',
+                        fontSize:'12'
+                    }
+                },
+    	    }],
+    	    yAxis: {
+    	        axisTick: {show:false},
+    	      	splitLine: {show:false},
+    	      	splitNumber:1 ,//y轴刻度,
+    	      	axisLabel: {
+                    formatter: '${value}k',
+                    textStyle: {
+                        fontFamily: 'Helvetica Neue Roman for IBM',
+                        fontSize:'12'
+                    }
+                } 
+    	    },
+            textStyle:{
+                fontFamily: 'Helvetica Neue Roman for IBM',
+                fontSize: 12
+            },
+    	  	series: [{
+    	        name:'CSA',
+    	        type:'bar',
+    	        barGap:0,
+    	        tooltip : {
+	    	       // trigger: 'axis',
+	    	        show:true,
+	    			//formatter : "{c}",
+	    			backgroundColor: '#04636E',
+    	        },
+    	        barWidth:40,
+    	        stack: 'stack',
+    	        data:[35,55,25,38],
+    	        itemStyle: {normal: {color:'#02808E'},
+    	            emphasis: {color: '#04636E'}
+    	        },
+    	    },
+    	    {
+    	        name:'',
+    	        type:'bar',
+    	        barGap:0,
+    	        barWidth:0,
+    	        stack: 'stack',
+    	        data:[0,0,0],
+    	        itemStyle: {normal: {color:'white'},},
+	    	    tooltip : {
+	    	        show:false,
+		        },
+    	    },
+    	    {
+    	        name:'All',
+    	        barGap:0,
+    	        tooltip : {
+    	        	//trigger: 'axis',
+	    	        show:true,
+	    			//formatter : "{c}",
+	    			backgroundColor: '#02A0B2',
+	    			textStyle:{color: 'white'}
+    	        },
+    	        type:'bar',
+    	        barWidth:40,
+    	        stack: 'stack',
+    	        data:[63,90,45,60],
+    	        itemStyle: {normal: {color:'#00B6CB'},
+    	            emphasis: {color: '#02A0B2'}
+    	        }
+    	    },
+    	    {
+                name:'Commercial Segment Clients',//line chart
+                type:'line',
+                symbol: 'circle',
+                symbolSize:8,
+                tooltip : {
+ 	    	        show:true,
+ 	    			backgroundColor: '#FFC107',
+     	        },
+                itemStyle : {
+                    normal : {
+                        color:'#FFC107'
+                    }
+                },
+                data:[],
+                markLine : {
+                    data : [{
+                        name: 'target',
+                        yAxis: 3,
+                        symbolSize:1,
+                        tooltip: {show: false,color:'#FFC107'},
+                        lineStyle:{
+                            normal: {color: '#FFC107',type: 'solid'},
+                            emphasis: { width: 1}
+                        },
+                    }]
+                }
+            },
+    	    {
+    	        name:'Invesitigate',
+    	        tooltip : {
+	    	        show:true,
+	    			backgroundColor: '#02A0B2',
+    	        },
+    	        type:'bar',
+    	        barWidth:40,
+    	        stack: 'stack',
+    	        data:[63,90,45,60],
+    	        itemStyle: {normal: {color:'#00B6CB'},
+    	            emphasis: {color: '#02A0B2'}
+    	        }
+    	    },
+    	    {
+    	        name:'Opportunities created',
+    	        tooltip : {
+	    	        show:true,
+	    			backgroundColor: '#02A0B2',
+	    			textStyle:{color: '#404040'}
+    	        },
+    	        type:'bar',
+    	        barWidth:40,
+    	        stack: 'stack',
+    	        data:[63,90,45,60],
+    	        itemStyle: {normal: {color:'#00B6CB'},
+    	            emphasis: {color: '#02A0B2'}
+    	        }
+    	    }
+    	    ]
+        };
+        var chart3 = document.querySelector('#chart3');
+        var mychart3 = echarts.init(chart3);
+        mychart3.setOption(option3);
+    </script>
+</body>
+</html>

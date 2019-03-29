@@ -12,11 +12,11 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/goods': {
-        target: '../mock/goods.json',  //目标接口域名
+        target: 'http://localhost:3000/',  //目标接口域名
         changeOrigin: true,  //是否跨域
-        pathRewrite: {
-          '^/goods': '/goods'   //重写接口
-        }
+        // pathRewrite: {
+        //   '^/goods': '/goods'   //重写接口
+        // }
       }
     },
 
@@ -34,7 +34,8 @@ module.exports = {
      */
 
     // https://webpack.js.org/configuration/devtool/#development
-    devtool: 'cheap-module-eval-source-map',
+    // devtool: 'cheap-module-eval-source-map',
+    devtool: 'source-map',
 
     // If you have problems debugging vue-files in devtools,
     // set this to false - it *may* help

@@ -11,9 +11,9 @@ const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const portfinder = require('portfinder')
 
 // add devserver start
-const express = require('express')
-const goodsData = require('./../mock/goods.json')
-const apiRouter = express.Router()
+// const express = require('express')
+// const goodsData = require('./../mock/goods.json')
+// const apiRouter = express.Router()
 // devserver end
 
 const HOST = process.env.HOST
@@ -49,12 +49,12 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     watchOptions: {
       poll: config.dev.poll,
     },
-    before(apiRouter) {
-      // apiRouter.get();
-      apiRouter.get('/goods', (req, res) => {
-        res.json(goodsData);
-      });
-    }
+    // before(apiRouter) {
+    //   // apiRouter.get();
+    //   apiRouter.get('/goods', (req, res) => {
+    //     res.json(goodsData);
+    //   });
+    // }
   },
   plugins: [
     new webpack.DefinePlugin({

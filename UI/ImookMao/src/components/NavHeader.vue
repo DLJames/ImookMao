@@ -37,10 +37,13 @@
     .navbar{
         display: flex;
         justify-content: space-between;
+        margin: 0 20px;
     }
     .navbar-menu-container{
         display: flex;
         justify-content: space-between;
+        align-items: center;
+        width: 120px;
     }
     .navbar-cart-container .navbar-cart-logo{
         width: 25px;

@@ -405,6 +405,12 @@
   flex: 1;
 }
 
+.load-more{
+  height: 100px;
+  line-height: 100px;
+  text-align: center;
+}
+
 .filter-nav {
   height: 55px;
   line-height: 55px;
