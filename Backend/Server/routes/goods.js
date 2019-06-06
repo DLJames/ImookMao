@@ -3,19 +3,29 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var Goods = require('../models/goods');//Goods is an instance of mongooes.model()
 
-mongoose.connect('mongodb://127.0.0.1:27017/dumall');
-
-mongoose.connection.on('connected', function() {
-   console.log('mongodb is connect successful'); 
+//方式一 直接通过connect 回调
+mongoose.connect('mongodb://127.0.0.1:27017/dumall', (err)=>{
+    if(err) {
+        console.error('error is : ', err);
+    }else{
+        console.log('mongooes connection successful!');
+    }
 });
 
-mongoose.connection.on('disconnected', function() {
-    console.log('mongodb is connect disconnected'); 
-});
+//方式二 建立连接，监听connection下的相应事件判断成功 or 失败
+// mongoose.connect('mongodb://127.0.0.1:27017/dumall');
 
-mongoose.connection.on('error', function() {
-    console.log('mongodb is connect fail'); 
-});
+// mongoose.connection.on('connected', function() {
+//    console.log('mongodb is connect successful'); 
+// });
+
+// mongoose.connection.on('disconnected', function() {
+//     console.log('mongodb is connect disconnected'); 
+// });
+
+// mongoose.connection.on('error', function() {
+//     console.log('mongodb is connect fail'); 
+// });
 
 router.get('/', function(req, res, next) {
     let page = parseInt(req.param('page'));

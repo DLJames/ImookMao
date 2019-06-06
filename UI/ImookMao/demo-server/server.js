@@ -20,7 +20,7 @@ http.createServer((req, res)=>{
             res.write(data.toString());
         }
         res.end();
-    });
+      });
 }).listen(3000, '127.0.0.1', ()=>{
     console.log('server is running at 127.0.0.1:3000');
 });

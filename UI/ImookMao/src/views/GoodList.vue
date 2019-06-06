@@ -134,6 +134,7 @@ export default {
                         }
                     }else {
                         self.goodsList = _data.result.list;
+                        // self.goodsList = _data.result;//used for mock data
                     }
                 }else {
                     self.goodsList = [];
@@ -194,7 +195,7 @@ export default {
         },
         addCart (productId) {
             axios.post('/goods/addCart', {
-                productId: productId 
+                productId: productId
             }).then((res)=>{
                 if(res) {
                     alert('购物车添加成功！');

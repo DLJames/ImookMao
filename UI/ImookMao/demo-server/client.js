@@ -3,7 +3,7 @@ let util = require('util');
 
 https.get('https://www.imooc.com/index/getstarlist', (res)=>{
     let data = '';
-    s
+
     res.on('data', (chunk)=>{
         data += chunk;
     });
