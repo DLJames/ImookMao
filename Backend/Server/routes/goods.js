@@ -90,8 +90,10 @@ router.post('/addCart', function(req, res, next) {
                     }else {
                         if(goodsDoc) {
                             console.log('goodsDoc before==', goodsDoc)
-                            goodsDoc._doc.productNum = 1;
-                            goodsDoc._doc.checked = 1;
+                            // goodsDoc._doc.productNum = 1;
+                            // goodsDoc._doc.checked = 1;
+                            goodsDoc.productNum = 1;
+                            goodsDoc.checked = 1;
                             console.log('goodsDoc after==', goodsDoc)
                             userDoc.cartList.push(goodsDoc);
                             userDoc.save(function(saveErr, saveDoc) {

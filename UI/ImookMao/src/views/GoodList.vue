@@ -96,7 +96,7 @@ export default {
             pageSize: 8,
             minPrice: 0,
             maxPrice: 4000,
-            busy: false,//用于控制load more功能生效与否，false代表生效，true代表失效
+            busy: true,//用于控制load more功能生效与否，false代表生效，true代表失效
             showAllData: false//用于控制当全部数据加载完毕，关闭loading more效果
         }
     },
@@ -109,7 +109,7 @@ export default {
         this.getGoodsList();
     },
     methods: {
-        getGoodsList (flag) {
+        getGoodsList (flag) {//flag 为true 代表loadmore
             var self = this;
             var params = {
                 page: this.page,
@@ -131,9 +131,16 @@ export default {
                             this.showAllData = true;
                         }else {
                             this.busy = false;
+                            this.showAllData = false;
                         }
                     }else {
                         self.goodsList = _data.result.list;
+                        this.busy = false;
+                        if(_data.result.count < 8) {
+                          this.showAllData = true;
+                        }else {
+                          this.showAllData = false;
+                        }
                         // self.goodsList = _data.result;//used for mock data
                     }
                 }else {
