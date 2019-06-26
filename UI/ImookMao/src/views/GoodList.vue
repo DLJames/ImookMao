@@ -9,7 +9,9 @@
                 <div class="filter-nav">
                     <span class="sortby">Sort by:</span>
                     <a href="javascript:void(0)" class="default" :class="{'cur': sortBy==='default'}" @click="getGoodsByDefault">Default</a>
-                    <a href="javascript:void(0)" class="price" :class="{'cur': sortBy==='price'}" @click="sortGoods">Price <svg class="icon icon-arrow-short"><use xlink:href="#icon-arrow-short"></use></svg></a>
+                    <a href="javascript:void(0)" class="price" :class="{'cur': sortBy==='price'}" @click="sortGoods">
+                      Price <svg class="icon icon-arrow-short" :class="{'sort-up': sortFlag === 1}"><use xlink:href="#icon-arrow-short"></use></svg>
+                    </a>
                     <a href="javascript:void(0)" class="filterby stopPop" @click="showFilterPop">Filter by</a>
                 </div>
                 <div class="accessory-result">
@@ -53,6 +55,26 @@
             </div>
         </div>
         <div class="md-overlay" v-show="overlayFlag" @click="closePop"></div>
+        <Modal :mdShow="mdShow" @closeModal="closeModal">
+          <p slot="message">
+            请先登录，否则无法加入购物车。
+          </p>
+          <div slot="btnGroup">
+            <a href="javascript:;" class="btn btn--m" @click="closeModal">关闭</a>
+          </div>
+        </Modal>
+        <Modal :mdShow="mdShowCart" @closeModal="closeCartModal">
+          <p slot="message">
+            <svg class="icon-status-ok">
+              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-status-ok"></use>
+            </svg>
+            <span>加入购物车成功！</span>
+          </p>
+          <div slot="btnGroup">
+            <a href="javascript:;" class="btn btn--m" @click="closeCartModal">继续购物</a>
+            <router-link class="btn btn--m" href="javascript:;" to="/cart">查看购物车</router-link>
+          </div>
+        </Modal>
         <nav-footer></nav-footer>
     </div>
 </template>
@@ -63,6 +85,7 @@ import './../assets/css/product.css'
 import NavHeader from '@/components/NavHeader'
 import NavBread from '@/components/NavBread'
 import NavFooter from '@/components/NavFooter'
+import Modal from '@/components/Modal'
 import axios from 'axios'
 
 export default {
@@ -88,6 +111,8 @@ export default {
                 }
             ],
             priceScopeIndex: -1,//-1 代表All，0,1,2...代表左侧对应价格范围选项
+            mdShow: false,
+            mdShowCart: false,
             filterBy: false,//用于控制 屏幕小时，显示filter by画面
             overlayFlag: false,//用于控制 屏幕小时，显示filter by画面
             sortBy: 'default',
@@ -103,7 +128,8 @@ export default {
     components: {
         NavHeader,
         NavBread,
-        NavFooter
+        NavFooter,
+        Modal
     },
     mounted () {
         this.getGoodsList();
@@ -119,7 +145,7 @@ export default {
                 maxPrice: this.maxPrice
             }
             // axios.get('/static/mock/goods.json').then((res)=>{
-            axios.get('/goods', {
+            axios.get('/goods/list', {
                 params: params
             }).then((res)=>{
                 var _data = res.data;
@@ -204,13 +230,32 @@ export default {
             axios.post('/goods/addCart', {
                 productId: productId
             }).then((res)=>{
-                if(res) {
-                    alert('购物车添加成功！');
+                if(res.data.status === '0') {
+                  this.mdShowCart = true;
+                }else {
+                  this.mdShow = true;
                 }
             }).catch((err)=>{
                 console.error('add cart error:', err);
             });
+        },
+        closeModal () {
+          this.mdShow = false;
+        },
+        closeCartModal () {
+          this.mdShowCart = false;
         }
     }
 }
 </script>
+
+<style scoped>
+.sort-up{
+  transform: rotate(180deg);
+  transition: all .3s ease-out;
+}
+.btn:hover{
+  background-color: #ffe5e6;
+  transition: all .3s ease-out;
+}
+</style>

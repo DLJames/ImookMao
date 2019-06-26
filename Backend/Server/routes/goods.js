@@ -27,7 +27,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/dumall', (err)=>{
 //     console.log('mongodb is connect fail'); 
 // });
 
-router.get('/', function(req, res, next) {
+router.get('/list', function(req, res, next) {
     let page = parseInt(req.param('page'));
     let pageSize = parseInt(req.param('pageSize'));
     let sort = parseInt(req.param('sort'));
@@ -59,7 +59,7 @@ router.get('/', function(req, res, next) {
 
 router.post('/addCart', function(req, res, next) {
     let userId = '100000077';
-    let User = require('../models/users');//User is an instance of mongooes.model()
+    let User = require('../models/user');//User is an instance of mongooes.model()
     let productId = req.body.productId;
     let productExist = false;
 
@@ -89,12 +89,10 @@ router.post('/addCart', function(req, res, next) {
                         res.json({'status': '1', 'msg': goodsErr.message});
                     }else {
                         if(goodsDoc) {
-                            console.log('goodsDoc before==', goodsDoc)
-                            // goodsDoc._doc.productNum = 1;
-                            // goodsDoc._doc.checked = 1;
-                            goodsDoc.productNum = 1;
-                            goodsDoc.checked = 1;
-                            console.log('goodsDoc after==', goodsDoc)
+                            goodsDoc._doc.productNum = 1;
+                            goodsDoc._doc.checked = 1;
+                            // goodsDoc.productNum = 1;
+                            // goodsDoc.checked = 1;
                             userDoc.cartList.push(goodsDoc);
                             userDoc.save(function(saveErr, saveDoc) {
                                 if(saveErr) {

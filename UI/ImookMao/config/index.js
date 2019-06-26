@@ -17,6 +17,14 @@ module.exports = {
         // pathRewrite: {
         //   '^/goods': '/goods'   //重写接口
         // }
+      },
+      '/goods/*': {
+        target: 'http://localhost:3000/',
+        changeOrigin: true
+      },
+      '/users/*': {
+        target: 'http://localhost:3000',
+        changeOrigin: true
       }
     },
 
@@ -28,7 +36,7 @@ module.exports = {
     notifyOnErrors: true,
     poll: false, // https://webpack.js.org/configuration/dev-server/#devserver-watchoptions-
 
-    
+
     /**
      * Source Maps
      */

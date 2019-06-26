@@ -20,6 +20,25 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//登录拦截
+app.use(function (req, res, next) {
+  if(req.cookies.userId) {
+    next();
+  }else {
+    // console.log('req originalUrl==', req.originalUrl, req.path)
+    //req.originalUrl 是完整的 带参数的路径， req.path 是不带参数的路径
+    if(req.originalUrl === '/users/login' || req.originalUrl === '/users/logout' || req.path === '/goods/list') {
+      next();
+    }else {
+      res.json({
+        status: '10001',
+        msg: '当前未登录',
+        result: ''
+      });
+    }
+  }
+});
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/goods', goodsRouter);
