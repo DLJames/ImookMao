@@ -55,11 +55,11 @@
           <a href="javascript:void(0)" class="navbar-link" v-show="nickName" @click="handleUserLogout">Logout</a>
           <div class="navbar-cart-container">
             <span class="navbar-cart-count"></span>
-            <a class="navbar-link navbar-cart-link" href="/#/cart">
+            <router-link class="navbar-link navbar-cart-link" to="/cart">
               <svg class="navbar-cart-logo">
                 <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-cart"></use>
               </svg>
-            </a>
+            </router-link>
           </div>
         </div>
       </div>
@@ -82,7 +82,7 @@
               </li>
               <li class="regi_form_input noMargin">
                 <i class="icon IconPwd"></i>
-                <input type="password" tabindex="2" v-model="userPwd" name="password" class="regi_login_input">
+                <input type="password" tabindex="2" v-model="userPwd" name="password" class="regi_login_input" @keyup.enter="login">
               </li>
             </ul>
           </div>

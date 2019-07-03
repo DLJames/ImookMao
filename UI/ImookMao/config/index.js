@@ -18,11 +18,11 @@ module.exports = {
         //   '^/goods': '/goods'   //重写接口
         // }
       },
-      '/goods/*': {
+      '/goods/*': {// /*可以比配 二级路由
         target: 'http://localhost:3000/',
         changeOrigin: true
       },
-      '/users/*': {
+      '/users/**': {// /** */可以比配 三级级路由
         target: 'http://localhost:3000',
         changeOrigin: true
       }

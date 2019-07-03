@@ -10,6 +10,7 @@ let productSchema = new Schema({
     "productId": String,
     "productName": String,
     "salePrice": Number,
+    "checked": Number,
     "productImage": String,
     "productUrl": String
 });
