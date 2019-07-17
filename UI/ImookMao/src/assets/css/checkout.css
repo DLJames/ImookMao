@@ -236,7 +236,7 @@ html {
   fill: #605F5F;
 }
 
-.addr-list li .addr-opration:hover .icon {
+.addr-list li .addr-opration:hover .icon{
   fill: #ee7a23;
 }
 
@@ -256,6 +256,13 @@ html {
 
 .addr-list li .addr-set-default {
   display: none;
+}
+
+.addr-list li:hover .addr-set-default {
+  display: block;
+  color: #ee7a23;
+  bottom: 18px;
+  left: 20px;
 }
 
 .addr-list li .addr-set-default, .addr-list li .addr-default {

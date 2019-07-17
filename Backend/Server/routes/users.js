@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var User = require('../models/user');
+require('../util/util');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -154,6 +155,181 @@ router.post('/editCheckAll', function(req, res, next) {
           res.json({status: '0', msg: '', result: 'success'});
         }
       });
+    }
+  });
+});
+
+router.get('/addressList', function(req, res, next) {
+  let userId = req.cookies.userId;
+
+  User.findOne({'userId': userId}, function(err, doc) {
+    if(err) {
+      res.json({status: '1', msg: err.message});
+    }else {
+      if(doc) {
+        res.json({
+          status: '0',
+          msg: '',
+          result: {
+            addressList: doc.addressList
+          }
+        });
+      }
+    }
+  });
+});
+
+router.post('/setDefault', function(req, res, next) {
+  let userId = req.cookies.userId;
+  let addressId = req.body.addressId;
+
+  User.findOne({'userId': userId}, function(err1, userDoc) {
+    if(err1) {
+      res.json({status: '1', msg: err.message});
+    }else {
+      if(userDoc) {
+        userDoc.addressList.forEach((item) => {
+          if(item.addressId === addressId) {
+            item.isDefault = true;
+          }else {
+            item.isDefault = false;
+          }
+        });
+        userDoc.save(function(err, doc) {
+          if(err) {
+            res.json({status: '1', msg: err.message});
+          }else {
+            res.json({
+              status: '0',
+              msg: '',
+              result: {
+                addressList: doc.addressList
+              }
+            });
+          }
+        });
+      }
+    }
+  });
+});
+
+router.post('/delAddress', function (req, res, next) {
+  let userId = req.cookies.userId,
+      addressId = req.body.addressId;
+
+  User.findOne({'userId': userId}, function(err1, userDoc) {
+    if(err1) {
+      res.json({status: '1', msg: err.message});
+    }else {
+      if(userDoc) {
+        userDoc.addressList = userDoc.addressList.filter(function(item) {
+          return item.addressId !== addressId;
+        });
+
+        userDoc.save(function(err, doc) {
+          if(err) {
+            res.json({status: '1', msg: err.message});
+          }else {
+            res.json({
+              status: '0',
+              msg: '',
+              result: {
+                addressList: doc.addressList
+              }
+            });
+          }
+        });
+      }
+    }
+  });
+});
+
+// router.post('/addNewAddress', function(req, res, next) {
+//   let userId = req.cookies.userId;
+//   let address = req.body.address;
+
+//   User.findOne({'userId': userId}, function(err, userDoc) {
+//     if(err) {
+//       res.json({status: '1', msg: err.message});
+//     }else {
+//       if(userDoc) {
+//         userDoc.addressList.push();
+//         userDoc.save(function (err, doc) {
+//           if(err) {
+//             res.json({status: '1', msg: err.message});
+//           }else {
+//             res.json({
+//               status: '0',
+//               msg: '',
+//               result: {
+//                 addressList: doc.addressList
+//               }
+//             });
+//           }
+//         });
+//       }
+//     }
+//   });
+// });
+
+router.post('/payMent', function (req, res, next) {
+  let userId = req.cookies.userId;
+  let orderTotal = req.body.orderTotal;
+  let addressId = req.body.addressId;
+  let goodsList= [];
+
+  User.findOne({'userId': userId}, function (err1, userDoc) {
+    if(err1) {
+      res.json({status: '1', msg: err.message});
+    }else {
+      if(userDoc) {
+        let address = '';
+
+        userDoc.addressList.forEach(function(item) {
+          if(addressId === item.addressId) {
+            address = item;
+          }
+        });
+
+        userDoc.cartList.forEach(function(item) {
+          if(item.checked === 1) {
+            goodsList.push(item);
+          }
+        });
+
+        let platform = '662';
+        let r1 = Math.floor(Math.random()*10);
+        let r2 = Math.floor(Math.random()*10);
+        let sysDate = new Date().Format('yyyyMMddhhmmss');
+        let createDate = new Date().Format('yyyy-MM-dd hh:mm:ss');
+        let orderId = platform+r1+sysDate+r2;
+        let order = {
+          orderId: orderId,
+          orderTotal: orderTotal,
+          addressInfo: address,
+          goodsList: goodsList,
+          orderStatus: '1',
+          createDate: createDate
+        }
+
+        userDoc.orderList.push(order);
+        userDoc.save(function(err, doc) {
+          if(err) {
+            res.json({status: '1', msg: err.message});
+          }else {
+            if(doc) {
+              res.json({
+                status: '0', 
+                msg: '',
+                result: {
+                  orderId: order.orderId,
+                  orderTotal: order.orderTotal
+                }
+              });
+            }
+          }
+        });
+      }
     }
   });
 });

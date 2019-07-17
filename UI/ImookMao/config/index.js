@@ -25,6 +25,10 @@ module.exports = {
       '/users/**': {// /** */可以比配 三级级路由
         target: 'http://localhost:3000',
         changeOrigin: true
+      },
+      '/address/**': {// /** */可以比配 三级级路由
+        target: 'http://localhost:3000',
+        changeOrigin: true
       }
     },
 
