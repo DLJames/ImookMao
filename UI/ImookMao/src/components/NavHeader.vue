@@ -54,7 +54,7 @@
           <a href="javascript:void(0)" class="navbar-link" v-show="!nickName" @click="showLoginDialog">Login</a>
           <a href="javascript:void(0)" class="navbar-link" v-show="nickName" @click="handleUserLogout">Logout</a>
           <div class="navbar-cart-container">
-            <span class="navbar-cart-count"></span>
+            <span class="navbar-cart-count" v-if="cartCount > 0">{{cartCount}}</span>
             <router-link class="navbar-link navbar-cart-link" to="/cart">
               <svg class="navbar-cart-logo">
                 <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-cart"></use>
@@ -105,8 +105,15 @@ export default {
       userName: '',
       userPwd: '',
       errorTip: false,
-      loginModalFlag: false,
-      nickName: ''
+      loginModalFlag: false
+    }
+  },
+  computed: {
+    nickName () {
+      return this.$store.state.nickName;
+    },
+    cartCount () {
+      return this.$store.state.cartCount;
     }
   },
   mounted() {
@@ -118,7 +125,8 @@ export default {
         let res = response.data;
 
         if(res.status === '0') {
-          this.nickName = res.result.userName;
+          this.$store.commit('setNickName', 'Hello ' + res.result.userName);
+          this.getCartCount();
         }else {
           // alert(res.msg);
         }
@@ -138,7 +146,8 @@ export default {
 
         if(res.status === '0') {
           this.errorTip = false;
-          this.nickName = res.result.userName;
+          this.$store.commit('setNickName', 'Hello ' + res.result.userName);
+          this.getCartCount();
           this.hideLoginDialog();
         }else {
           this.errorTip = true;
@@ -150,7 +159,16 @@ export default {
         let res = response.data;
 
         if(res.status === '0') {
-          this.nickName = '';
+          this.$store.commit('setNickName', '');
+        }
+      });
+    },
+    getCartCount () {
+      axios.get('/users/getCartCount').then((response) => {
+        let res = response.data;
+
+        if(res.status === '0') {
+          this.$store.commit('initCartCount', res.result.count);
         }
       });
     },

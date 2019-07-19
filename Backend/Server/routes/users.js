@@ -334,4 +334,29 @@ router.post('/payMent', function (req, res, next) {
   });
 });
 
+router.get('/getCartCount', function(req, res, next) {
+  let userId = req.cookies.userId;
+
+  User.findOne({'userId': userId}, function(err, doc) {
+    if(err) {
+      res,json({status: '1', msg: err.message});
+    }else {
+      let cartList = doc.cartList;
+      let cartCount = 0;
+
+      cartList.forEach(item => {
+        cartCount += parseInt(item.productNum);
+      });
+
+      res.json({
+        status: '0',
+        msg: '',
+        result: {
+          count: cartCount
+        }
+      });
+    }
+  });
+});
+
 module.exports = router;

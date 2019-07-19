@@ -55,7 +55,7 @@ a {
   position: absolute;
   top: -9px;
   right: -11px;
-  width: 20px;
+  min-width: 25px;
   border-radius: 10px;
   color: white;
   background-color: #eb767d;

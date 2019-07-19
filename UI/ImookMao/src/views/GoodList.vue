@@ -232,6 +232,7 @@ export default {
             }).then((res)=>{
                 if(res.data.status === '0') {
                   this.mdShowCart = true;
+                  this.$store.commit('setCartCount', 1);
                 }else {
                   this.mdShow = true;
                 }

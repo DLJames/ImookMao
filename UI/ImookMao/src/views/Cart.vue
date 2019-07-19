@@ -115,7 +115,7 @@
                 </div>
                 <div class="cart-tab-5">
                   <div class="cart-item-opration">
-                    <a href="javascript:;" class="item-edit-btn" @click="showModalConfirm(item.productId)">
+                    <a href="javascript:;" class="item-edit-btn" @click="showModalConfirm(item)">
                       <svg class="icon icon-del">
                         <use xlink:href="#icon-del"></use>
                       </svg>
@@ -177,8 +177,8 @@ export default {
   data () {
     return {
       cartList: [],
-      modalConfirm: false,
-      currentDelProductId: ''
+      delItem: null,
+      modalConfirm: false
     };
   },
   mounted () {
@@ -214,9 +214,9 @@ export default {
       });
     },
 
-    showModalConfirm (productId) {
+    showModalConfirm (item) {
       this.modalConfirm = true;
-      this.currentDelProductId = productId;
+      this.delItem = item;
     },
 
     closeModal () {
@@ -225,7 +225,7 @@ export default {
 
     delCart () {
       let params = {
-        productId: this.currentDelProductId
+        productId: this.delItem.productId
       };
       axios.post('/users/cart/del', params).then((response) => {
         let res = response.data;
@@ -233,6 +233,7 @@ export default {
         if(res.status === '0') {
           this.closeModal();
           this.getCartList();
+          this.$store.commit('setCartCount', -this.delItem.productNum);
         }
       });
     },
@@ -253,7 +254,11 @@ export default {
         let res = response.data;
 
         if(res) {
-
+          if(flag === 'add') {
+            this.$store.commit('setCartCount', 1);
+          }else if(flag === 'minu' && item.productNum > 1){
+            this.$store.commit('setCartCount', -1);
+          }
         }
       });
     },
